@@ -1,0 +1,22 @@
+<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+</dependency>
+
+sudo /usr/pgadmin4/bin/setup-web.sh
+
+
+No, not just like that. Values have to be strings. I'd strongly recommend to use something like jQuerys .data() method to hold Arrays or Objects in an expando property.
+
+If it must be in the value, you just need to JSON decode (.parse) it:
+
+var myValue = JSON.parse(this.value);
+
+myValue.age; // 40
+myValue.name // rajiv
+But again, I don't think this is a good solution. Have a look at http://api.jquery.com/jQuery.data/ Also, jQuery will automatically convert Arrays and Objects if you put the JSON strings in any data- HTML5 attribute. For instance:
+
+<option value="A" data-info="{'name':'rajiv',age:'40'}">something</option>
+If you access that node with jQuery now, we automatically got that object in it's data expando
+
+$('option').data('info').name; // === rajiv
